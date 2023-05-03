@@ -1,28 +1,67 @@
 #include<iostream>
 #include<vector>
+#include"Graph.h"
 
 using namespace std;
 
+//function to determine whether a 
+bool promising(int i, vector<int>& colors, Graph& const g) {
+	int j = 0;
+	bool flag = true;
+
+	while ((j < i) && flag) {
+		if ((g.isAdjacent(i, j)) && (colors.at(i) == colors.at(j))) {
+			flag = false;
+		}
+		j++;
+	}
+	return flag;
+}
+
+void graphColors(int i, int m, Graph& g, vector<int>& vColor) {
+	int color;
+
+	if (promising(i, vColor, g)) {
+		if (i == g.getNumVertices()) {
+			return;
+		}
+		else {
+			for (color = 1; color <= m; color++) {
+				vColor.at(i+1) = color;
+				graphColors(i + 1, m, g, vColor);
+			}
+		}
+	}
+}
+
+void mColors(int i, int m, Graph& const g) {
+	vector<int> vColor(g.getNumVertices(), -2);
+	
+	graphColors(i, m, g, vColor);
+
+	for (int x = 0; x < vColor.size(); x++) {
+		cout << x << " : " << vColor.at(x) << endl;
+	}
+}
+
 int main() {
 
+	Graph g;
+	int colors;
 
-	struct Edge {
-		int v1;
-		int v2;
-		Edge(int vi = -2, int vj = -2) { v1 = vi; v2 = vj; }
+	cin >> colors;
 
-		// reads in (0 1) as an edge with v1 as 0 and v2 as 1 for easier manipulation in graph read function
-		void read() {
-			char garbage;
-			cin >> garbage >> this->v1 >> this->v2 >> garbage;
-		}
-	};
+	g.read();
+	
+	vector<int> optColors(g.getNumVertices(), -2);
 
-	Edge test;
+	/*for (auto i : optColors) {
+		cout << i << endl;
+	}
+	cout << g.getNumVertices();*/
 
-	test.read();
-
-	cout << test.v1 << " " << test.v2;
+	mColors(-1, colors, g);
+	
 
 	return 0;
 }

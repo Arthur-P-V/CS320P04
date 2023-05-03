@@ -40,6 +40,15 @@ public:
 			temp.read();
 		}
 	}
+
+	void printAdj() {
+		for (int i = 0; i < numVertices; ++i) {
+			for (int j = 0; j < numVertices; ++j) {
+				cout << adjMatrix[i][j] << " ";
+			}
+			cout << endl;
+		}
+	}
 	
 	//determine whether two vertices are adjacent
 	bool isAdjacent(int v1, int v2) {
