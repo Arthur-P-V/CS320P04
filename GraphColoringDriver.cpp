@@ -18,11 +18,18 @@ bool promising(int i, vector<int>& colors, Graph& const g) {
 	return flag;
 }
 
+bool found = false;
+
 void graphColors(int i, int m, Graph& g, vector<int>& vColor) {
 	int color;
 
+	if (found) {
+		return;
+	}
+
 	if (promising(i, vColor, g)) {
-		if (i == g.getNumVertices()) {
+		if (i == (g.getNumVertices() - 1)) {
+			found = true;
 			return;
 		}
 		else {
