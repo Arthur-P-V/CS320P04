@@ -37,6 +37,7 @@ public:
 		temp.read();
 		while ((temp.v1 != -1) && (temp.v2 != -1)) {
 			adjMatrix[temp.v1][temp.v2] = 1;
+			adjMatrix[temp.v2][temp.v1] = 1;
 			temp.read();
 		}
 	}

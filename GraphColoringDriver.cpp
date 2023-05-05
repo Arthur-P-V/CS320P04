@@ -33,7 +33,7 @@ void graphColors(int i, int m, Graph& g, vector<int>& vColor) {
 			return;
 		}
 		else {
-			for (color = 1; color <= m; color++) {
+			for (color = 1; color <= m && !found; color++) {
 				vColor.at(i+1) = color;
 				graphColors(i + 1, m, g, vColor);
 			}
@@ -61,6 +61,8 @@ int main() {
 	g.read();
 	
 	vector<int> optColors(g.getNumVertices(), -2);
+
+	//g.printAdj();
 
 	/*for (auto i : optColors) {
 		cout << i << endl;
