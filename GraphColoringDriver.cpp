@@ -7,15 +7,14 @@ using namespace std;
 //function to determine whether a 
 bool promising(int i, vector<int>& colors, Graph& const g) {
 	int j = 0;
-	bool flag = true;
 
-	while ((j < i) && flag) {
+	while (j < i) {
 		if ((g.isAdjacent(i, j)) && (colors.at(i) == colors.at(j))) {
-			flag = false;
+			return false;
 		}
 		j++;
 	}
-	return flag;
+	return true;
 }
 
 bool found = false;
@@ -46,9 +45,15 @@ void mColors(int i, int m, Graph& const g) {
 	
 	graphColors(i, m, g, vColor);
 
-	for (int x = 0; x < vColor.size(); x++) {
-		cout << x << " : " << vColor.at(x) << endl;
+	if (found) {
+		for (int x = 0; x < vColor.size(); x++) {
+			cout << x << " : " << vColor.at(x) << endl;
+		}
 	}
+	else {
+		cout << "No color assignment possible." << endl;
+	}
+	
 }
 
 int main() {
@@ -59,8 +64,6 @@ int main() {
 	cin >> colors;
 
 	g.read();
-	
-	vector<int> optColors(g.getNumVertices(), -2);
 
 	//g.printAdj();
 
